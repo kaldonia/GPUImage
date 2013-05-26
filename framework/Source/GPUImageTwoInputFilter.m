@@ -204,10 +204,10 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     outputTextureRetainCount = [targets count];
 
     // You can set up infinite update loops, so this helps to short circuit them
-    if (hasReceivedFirstFrame && hasReceivedSecondFrame)
-    {
-        return;
-    }
+//    if (hasReceivedFirstFrame && hasReceivedSecondFrame)
+//    {
+//        return;
+//    }
     
     BOOL updatedMovieFrameOppositeStillImage = NO;
     
@@ -215,10 +215,10 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     {
         hasReceivedFirstFrame = YES;
         firstFrameTime = frameTime;
-        if (secondFrameCheckDisabled)
-        {
-            hasReceivedSecondFrame = YES;
-        }
+//        if (secondFrameCheckDisabled)
+//        {
+//            hasReceivedSecondFrame = YES;
+//        }
         
         if (!CMTIME_IS_INDEFINITE(frameTime))
         {
@@ -232,10 +232,10 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     {
         hasReceivedSecondFrame = YES;
         secondFrameTime = frameTime;
-        if (firstFrameCheckDisabled)
-        {
-            hasReceivedFirstFrame = YES;
-        }
+//        if (firstFrameCheckDisabled)
+//        {
+//            hasReceivedFirstFrame = YES;
+//        }
 
         if (!CMTIME_IS_INDEFINITE(frameTime))
         {
@@ -250,8 +250,8 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     if ((hasReceivedFirstFrame && hasReceivedSecondFrame) || updatedMovieFrameOppositeStillImage)
     {
         [super newFrameReadyAtTime:frameTime atIndex:0];
-        hasReceivedFirstFrame = NO;
-        hasReceivedSecondFrame = NO;
+        hasReceivedFirstFrame = firstFrameCheckDisabled;
+        hasReceivedSecondFrame = secondFrameCheckDisabled;
     }
 }
 
